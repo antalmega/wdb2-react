@@ -12,19 +12,26 @@ class App extends Component {
       todos: [],
       newTodo: ''
     };
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value})
   }
   
   handleSubmit(e) {
       e.preventDefault();
-      const todos = [...this.state.todos, this.state.newTodo]
+      // const todos = [...this.state.todos, this.state.newTodo];
+      let todos = this.state.todos.slice();
+      todos.push(this.state.newTodo);
       this.setState({todos, newTodo: ''});
-  };
+  }
   
   render() {
     const {newTodo} = this.state;
     const todos = this.state.todos.map((text, index) => (
-      <TodoItem key = {index} text={text} />
+      <TodoItem key={index} text={text} />
     ));
     
     return (
@@ -38,7 +45,8 @@ class App extends Component {
             name="newTodo"
             placeholder="Add new todo..."
             value={newTodo}
-            onChange={(e) => this.setState({[e.target.name]: e.target.value})}
+            // onChange={(e) => this.setState({[e.target.name]: e.target.value})}
+            onChange={this.handleChange}
           />
           <button
             type="submit"
