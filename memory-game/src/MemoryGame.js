@@ -59,34 +59,33 @@ class MemoryGame extends Component {
         return {cards};
       });*/
       
-      let clickedCard = this.state.cards.find(c => c.id === id);
+      const clickedCard = this.state.cards.find(c => c.id === id);
       
       if (this.state.disableClick || clickedCard.cardState !== CardState.HIDING) return;
       
       let cards = this.state.cards.map(c => (
         c.id === id ? {
           ...c,
-          cardState: c.cardState === CardState.HIDING ? CardState.SHOWING : CardState.HIDING
+          cardState: CardState.SHOWING
         } : c
       ));
       
-      let selectedCards = cards.filter(c => c.cardState === CardState.SHOWING);
+      const selectedCards = cards.filter(c => c.cardState === CardState.SHOWING);
       
       if (selectedCards.length === 2 &&
           selectedCards[0].backgroundColor === selectedCards[1].backgroundColor) {
         cards = cards.map(c => c.cardState === CardState.SHOWING ? {...c, cardState: CardState.MATCHING} : c);
       } else if (selectedCards.length === 2) {
-        let hideCards = cards.map(c => c.cardState === CardState.SHOWING ? {...c, cardState: CardState.HIDING} : c);
         let disableClick = true;
         
         this.setState({cards, disableClick}, () => {
           setTimeout(() => {
+            const hideCards = cards.map(c => c.cardState === CardState.SHOWING ? {...c, cardState: CardState.HIDING} : c);
             this.setState({cards: hideCards, disableClick: false});
-          }, 1500);
+          }, 1000);
         });
         return;
       }
-      
       this.setState({cards});
     }
     
