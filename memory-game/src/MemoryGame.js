@@ -50,16 +50,12 @@ class MemoryGame extends Component {
     
     handleClick(id) {
       const updateCardState = (cards, ids, newCardState) => {
-        return cards.map(card => {
-          if (ids.includes(card.id)) {
-            return {
-              ...card,
-              cardState: newCardState
-            };
-          }
-          return card;
-        });
-      }
+        return cards.map(card => (
+          ids.includes(card.id) ?
+          {...card, cardState: newCardState}
+          : card
+        ));
+      };
       
       const clickedCard = this.state.cards.find(c => c.id === id);
       
