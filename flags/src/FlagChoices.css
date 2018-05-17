@@ -1,0 +1,24 @@
+
+
+.flag-form {
+  display:flex;
+  justify-content: space-around;
+  max-width: 1000px;
+  margin: 30px auto 10px;
+  font-size: 1.3em;
+}
+
+
+@media (max-width: 700px) {
+  .form-container {
+    display: flex;
+    margin: 0 auto;
+  }
+  
+  .flag-form {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20vh;
+    align-items: flex-start;
+  }
+}
